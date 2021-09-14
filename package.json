@@ -1,0 +1,53 @@
+{
+  "name": "runtime-helpers",
+  "version": "1.0.0",
+  "description": "A set of common utility code for use in Twilio Functions.",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint --ext js .",
+    "lint:all": "npm run lint -- --no-ignore",
+    "format": "prettier --write .",
+    "format:changed": "pretty-quick --branch main",
+    "format:check": "prettier --check .",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twilio-labs/function-utilities.git"
+  },
+  "author": "Twilio <open-source@twilio.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/twilio-labs/function-utilities/issues"
+  },
+  "homepage": "https://github.com/twilio-labs/function-utilities#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "./**/*.js": {
+        "statements": 80,
+        "branches": 80
+      }
+    },
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.9.1",
+    "eslint": "^7.32.0",
+    "eslint-config-twilio": "^1.35.1",
+    "husky": "^7.0.0",
+    "jest": "^27.1.1",
+    "prettier": "^2.4.0",
+    "pretty-quick": "^3.1.1",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.2"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "runtime-helpers",
+  "name": "@twilio-labs/runtime-helpers",
   "version": "1.0.0",
   "description": "A set of common utility code for use in Twilio Functions.",
   "scripts": {
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twilio-labs/function-utilities.git"
+    "url": "git+https://github.com/twilio-labs/runtime-helpers.git"
   },
   "author": "Twilio <open-source@twilio.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/twilio-labs/function-utilities/issues"
+    "url": "https://github.com/twilio-labs/runtime-helpers/issues"
   },
-  "homepage": "https://github.com/twilio-labs/function-utilities#readme",
+  "homepage": "https://github.com/twilio-labs/runtime-helpers#readme",
   "jest": {
     "testEnvironment": "node",
     "collectCoverage": true,

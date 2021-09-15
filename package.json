@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A set of common utility code for use in Twilio Functions.",
   "scripts": {
+    "clean": "rimraf dist/",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "dev": "tsc --watch",
     "test": "jest",
     "lint": "eslint --ext js .",
     "lint:all": "npm run lint -- --no-ignore",
@@ -39,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@twilio-labs/serverless-runtime-types": "^2.1.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.9.1",
     "eslint": "^7.32.0",
@@ -47,7 +52,16 @@
     "jest": "^27.1.1",
     "prettier": "^2.4.0",
     "pretty-quick": "^3.1.1",
+    "rimraf": "^3.0.2",
     "ts-jest": "^27.0.5",
     "typescript": "^4.4.2"
-  }
+  },
+  "dependencies": {
+    "twilio": "^3.67.2"
+  },
+  "files": [
+    "dist/!(__tests__)",
+    "README.md",
+    "LICENSE"
+  ]
 }

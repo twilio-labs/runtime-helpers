@@ -3,3 +3,6 @@ package-lock.json
 .DS_Store
 
 dist/
+
+# Exclude generated docs
+docs/

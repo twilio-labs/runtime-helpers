@@ -13,7 +13,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
   },
-  ignorePatterns: ['dist/**'],
+  ignorePatterns: ['dist/**', 'docs/**'],
   rules: {
     'prettier/prettier': 0,
     'import/no-extraneous-dependencies': 0,

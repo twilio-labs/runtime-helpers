@@ -7,6 +7,7 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "dev": "tsc --watch",
+    "docs": "typedoc --options typedoc.json",
     "test": "jest",
     "lint": "eslint --ext js .",
     "lint:all": "npm run lint -- --no-ignore",
@@ -54,6 +55,7 @@
     "pretty-quick": "^3.1.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.5",
+    "typedoc": "^0.22.3",
     "typescript": "^4.4.2"
   },
   "dependencies": {

@@ -1,5 +1,21 @@
+/**
+ * A set of utilities for accessing and modifying environment variables in
+ * Twilio Functions.
+ * @module
+ */
 import { Context } from '@twilio-labs/serverless-runtime-types/types';
 import { EnvironmentInstance } from 'twilio/lib/rest/serverless/v1/service/environment';
+import { VariableInstance } from 'twilio/lib/rest/serverless/v1/service/environment/variable';
+
+/**
+ * Given a Serverless `Context` object, finds and returns the first available `EnvironmentInstance`.
+ *
+ * Note that if running on `localhost`, or if no `EnvironmentInstance`s are available, this function
+ * returns `undefined`.
+ *
+ * @param context The current Serverless context.
+ * @returns The first valid environment for the given context, or `undefined`.
+ */
 
 export async function getCurrentEnvironment(
   context: Context
@@ -23,10 +39,19 @@ export async function getCurrentEnvironment(
   }
 }
 
+/**
+ * Given a Serverless `Context` and an `EnvironmentInstance` (usually from {@link getCurrentEnvironment}),
+ * returns a list of defined environment variable instances.
+ *
+ * @param context The current Serverless context.
+ * @param environment A Serverless environment.
+ * @returns A list of environment variable instances.
+ */
+
 export async function getEnvironmentVariables(
   context: Context,
   environment: EnvironmentInstance
-) {
+): Promise<VariableInstance[]> {
   const client = context.getTwilioClient();
   return client.serverless
     .services(environment.serviceSid)
@@ -34,15 +59,43 @@ export async function getEnvironmentVariables(
     .variables.list();
 }
 
+/**
+ * Given a Serverless `Context`, an `EnvironmentInstance` (usually from
+ * {@link getCurrentEnvironment}), and a string `key`, returns the environment
+ * variable corresponding to `key`, or `undefined` if no matching variable
+ * exists.
+ *
+ * @param context The current Serverless context.
+ * @param environment A Serverless environment.
+ * @param key The name of the environment variable to access.
+ * @returns The `VariableInstance` matching the `key`, or `undefined` if no match is found.
+ */
+
 export async function getEnvironmentVariable(
   context: Context,
   environment: EnvironmentInstance,
   key: string
-) {
+): Promise<VariableInstance | undefined> {
   const envVars = await getEnvironmentVariables(context, environment);
 
   return envVars.find((variable) => variable.key === key);
 }
+
+/**
+ * For a given Serverless `Context` and `EnvironmentInstance`, set the environment variable
+ * named `key` to `value`.
+ *
+ * If the `override` parameter is `true` (the default), setting an existing environment variable
+ * will override its current value with the new one. If it is `false`, then this function will instead
+ * log a warning and return `false`.
+ *
+ * @param context The current Serverless context.
+ * @param environment A Serverless environment.
+ * @param key The name of the environment variable to set.
+ * @param value The value to store in the environment variable.
+ * @param override If true, allow overriding existing variables.
+ * @returns `true` if setting the environment variable succeeded, `false` if an error occurred
+ */
 
 export async function setEnvironmentVariable(
   context: Context,
@@ -50,7 +103,7 @@ export async function setEnvironmentVariable(
   key: string,
   value: string,
   override: boolean = true
-) {
+): Promise<boolean> {
   const client = context.getTwilioClient();
   try {
     const currentVariable = await getEnvironmentVariable(

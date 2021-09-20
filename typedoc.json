@@ -1,0 +1,8 @@
+{
+  "name": "@twilio-labs/runtime-helpers",
+  "out": "docs",
+  "entryPoints": ["src"],
+  "entryPointStrategy": "expand",
+  "theme": "default",
+  "exclude": ["**/__tests__/*.ts"]
+}

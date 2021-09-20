@@ -3,6 +3,7 @@
  * @module
  */
 import '@twilio-labs/serverless-runtime-types';
+import { ServerlessCallback } from '@twilio-labs/serverless-runtime-types/types';
 
 /**
  * Works like NodeJS `require`, but loads code from the requested Twilio Asset
@@ -38,4 +39,44 @@ export function requireAsset(assetPath: string): any {
 export function requireFunction(functionName: string): any {
   const { path } = Runtime.getFunctions()[functionName];
   return require(path);
+}
+
+/**
+ * Small helper function to cause a Function to emit a successful response.
+ *
+ * @param callback A Serverless callback.
+ * @param data An optional JSON object to be included with the response.
+ */
+
+export function success(callback: ServerlessCallback, data: {} = {}) {
+  const response = new Twilio.Response();
+
+  response.appendHeader('Content-Type', 'application/json');
+  response.setBody({
+    success: true,
+    ...data,
+  });
+
+  return callback(null, response);
+}
+
+/**
+ * Small helper function to cause a Function to log an error and emit an
+ * error response.
+ *
+ * @param callback A Serverless callback.
+ * @param reason An error message.
+ */
+
+export function failure(callback: ServerlessCallback, reason: string) {
+  console.error(reason);
+  const response = new Twilio.Response();
+
+  response.appendHeader('Content-Type', 'application/json');
+  response.setBody({
+    success: true,
+    error: reason,
+  });
+
+  return callback(null, response);
 }

@@ -6,5 +6,5 @@ export const environment = environmentLib;
 
 export const event = eventLib;
 
-export { requireAsset, requireFunction } from './utils';
+export { requireAsset, requireFunction, success, failure } from './utils';
 export const utils = utilsLib;

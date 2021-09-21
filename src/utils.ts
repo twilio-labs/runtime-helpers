@@ -69,12 +69,12 @@ export function success(callback: ServerlessCallback, data: {} = {}) {
  */
 
 export function failure(callback: ServerlessCallback, reason: string) {
-  console.error(reason);
   const response = new Twilio.Response();
 
   response.appendHeader('Content-Type', 'application/json');
+  response.setStatusCode(500);
   response.setBody({
-    success: true,
+    success: false,
     error: reason,
   });
 

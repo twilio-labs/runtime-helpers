@@ -20,6 +20,9 @@ import { ServerlessCallback } from '@twilio-labs/serverless-runtime-types/types'
 
 export function requireAsset(assetPath: string): any {
   const assets = Runtime.getAssets();
+
+  // Prepend '/' to assetPath if not already present
+  assetPath = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
   return require(assets[assetPath].path);
 }
 
@@ -37,8 +40,13 @@ export function requireAsset(assetPath: string): any {
  */
 
 export function requireFunction(functionName: string): any {
-  const { path } = Runtime.getFunctions()[functionName];
-  return require(path);
+  const functions = Runtime.getFunctions();
+
+  // If functionName starts with '/', remove it
+  functionName = functionName.startsWith('/')
+    ? functionName.slice(1)
+    : functionName;
+  return require(functions[functionName].path);
 }
 
 /**

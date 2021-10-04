@@ -39,6 +39,13 @@ export type AuthEvent = {
  * Note that `isAuthenticated` currently only works for one pre-defined username
  * and passcode.
  *
+ * Usage:
+ * ```
+ * if (!isAuthenticated(context, event)) {
+ *   return callback(null, 'Invalid credentials');
+ * }
+ * ```
+ *
  * @param context A Serverless Context containing authentication environment variables.
  * @param event An incoming Serverless request.
  * @returns `true` if the incoming request has authentication headers, and if its credentials match those given in the Function's environment variables. `false` otherwise.*/

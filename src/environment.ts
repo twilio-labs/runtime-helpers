@@ -13,6 +13,8 @@ import { VariableInstance } from 'twilio/lib/rest/serverless/v1/service/environm
  * Note that if running on `localhost`, or if no `EnvironmentInstance`s are available, this function
  * returns `undefined`.
  *
+ * Usage: `const environment = await getCurrentEnvironment(context);`
+ *
  * @param context The current Serverless context.
  * @returns The first valid environment for the given context, or `undefined`.
  */
@@ -43,6 +45,8 @@ export async function getCurrentEnvironment(
  * Given a Serverless `Context` and an `EnvironmentInstance` (usually from {@link getCurrentEnvironment}),
  * returns a list of defined environment variable instances.
  *
+ * Usage: `const envVars = await getEnvironmentVariables(context, environment);`
+ *
  * @param context The current Serverless context.
  * @param environment A Serverless environment.
  * @returns A list of environment variable instances.
@@ -64,6 +68,8 @@ export async function getEnvironmentVariables(
  * {@link getCurrentEnvironment}), and a string `key`, returns the environment
  * variable corresponding to `key`, or `undefined` if no matching variable
  * exists.
+ *
+ * Usage: `const var = await getEnvironmentVariable(context, environment, 'var');`
  *
  * @param context The current Serverless context.
  * @param environment A Serverless environment.
@@ -88,6 +94,8 @@ export async function getEnvironmentVariable(
  * If the `override` parameter is `true` (the default), setting an existing environment variable
  * will override its current value with the new one. If it is `false`, then this function will instead
  * log a warning and return `false`.
+ *
+ * Usage: `setEnvironmentVariable(context, envrionment, 'var', 'value');`
  *
  * @param context The current Serverless context.
  * @param environment A Serverless environment.

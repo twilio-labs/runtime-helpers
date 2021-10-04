@@ -1,3 +1,7 @@
+/**
+ * runtime-helpers default exports
+ * @module
+ */
 import * as authLib from './auth';
 import * as environmentLib from './environment';
 import * as eventLib from './event';

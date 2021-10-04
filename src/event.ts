@@ -11,9 +11,11 @@ type Parameters = {
 /**
  * Extracts the HTTP parameters from a Serverless `event`. Can optionally accept a paramter
  * `required`, which is a list of required parameter names that the request to the Function should have
- * included. If any required parameters are missing, this function throws an error`Response` that should
+ * included. If any required parameters are missing, this function throws an error `Response` that should
  * be caught and passed to a Serverless Function's `callback`. If `moreInfo` is defined, it should be a
  * documentation URL describing the Function's API.
+ *
+ * Usage: `const {param1, param2, param3} = extractParams(event, ['param1', 'param2', 'param3']);`
  *
  * @param event A Serverless event.
  * @param required A list of required parameter keys.

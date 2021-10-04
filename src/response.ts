@@ -9,9 +9,13 @@ import { TwilioResponse } from '@twilio-labs/serverless-runtime-types/types';
  *
  * The `origin` parameter is required, but passing in `*` will allow access from any origin.
  *
+ * Usage: `enableCORS(response, '*');`
+ *
  * @param origin A URL string representing an origin, or `*` for any origin.
  * @param methods A list of HTTP methods whose use is allowed by clients.
- * @param headers A list of HTTP headers that can be used in a client's request.*/
+ * @param headers A list of HTTP headers that can be used in a client's request.
+ */
+
 export function enableCORS(
   response: TwilioResponse,
   origin: string,

@@ -14,6 +14,8 @@ import { ServerlessCallback } from '@twilio-labs/serverless-runtime-types/types'
  * or a private Function name, depending on whether your code is in the `assets`
  * or the `functions` directory.
  *
+ * Usage: `const mylib = requireAsset('mylib');`
+ *
  * @param assetPath The path to the Twilio Asset you want to load as code.
  * @returns A NodeJS module.
  */
@@ -35,6 +37,8 @@ export function requireAsset(assetPath: string): any {
  * or a private Function name, depending on whether your code is in the `assets`
  * or the `functions` directory.
  *
+ * Usage: `const mylib = requireFunction('mylib');`
+ *
  * @param functionName The name of the Twilio Function whose code you want to load.
  * @returns A NodeJS module.
  */
@@ -51,6 +55,8 @@ export function requireFunction(functionName: string): any {
 
 /**
  * Small helper function to cause a Function to emit a successful response.
+ *
+ * Usage: `return success(callback, {message: 'Completed successfully'});`
  *
  * @param callback A Serverless callback.
  * @param data An optional JSON object to be included with the response.
@@ -69,8 +75,9 @@ export function success(callback: ServerlessCallback, data: {} = {}) {
 }
 
 /**
- * Small helper function to cause a Function to log an error and emit an
- * error response.
+ * Small helper function to cause a Function to emit an error response.
+ *
+ * Usage: `return failure(callback, 'An error occurred');`
  *
  * @param callback A Serverless callback.
  * @param reason An error message.

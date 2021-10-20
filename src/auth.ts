@@ -48,7 +48,8 @@ export type AuthEvent = {
  *
  * @param context A Serverless Context containing authentication environment variables.
  * @param event An incoming Serverless request.
- * @returns `true` if the incoming request has authentication headers, and if its credentials match those given in the Function's environment variables. `false` otherwise.*/
+ * @returns `true` if the incoming request has authentication headers, and if its credentials match those given in the Function's environment variables. `false` otherwise.
+ */
 
 export function isAuthenticated(
   context: Context<AuthEnvVars>,

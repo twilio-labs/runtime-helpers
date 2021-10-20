@@ -1,6 +1,5 @@
 import { Mock, IMock } from 'moq.ts';
 import { Context } from '@twilio-labs/serverless-runtime-types/types';
-import { TwilioResponse } from '@twilio-labs/serverless-runtime-types/types';
 import { isAuthenticated, AuthEnvVars, AuthEvent } from '../auth';
 
 type AuthContext = Context<AuthEnvVars>;

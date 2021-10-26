@@ -11,21 +11,21 @@ describe('enableCORS()', () => {
       .setup((instance) =>
         instance.appendHeader('Access-Control-Allow-Origin', origin)
       )
-      .returns()
+      .returns(undefined)
       .setup((instance) =>
         instance.appendHeader(
           'Access-Control-Allow-Methods',
           methods.join(', ')
         )
       )
-      .returns()
+      .returns(undefined)
       .setup((instance) =>
         instance.appendHeader(
           'Access-Control-Allow-Headers',
           headers.join(', ')
         )
       )
-      .returns()
+      .returns(undefined)
       .object();
 
     enableCORS(responseMock, origin, methods, headers);

@@ -44,7 +44,7 @@ jobs:
           npm test
         env:
           CI: true
-      - name: Create the docs directory
+      - name: Build docs
         run: npm run docs
       - name: Deploy docs to Github Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4

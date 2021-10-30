@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
+    "ow": "^0.28.1",
     "tsscmp": "^1.0.6",
     "twilio": "^3.67.2"
   },

@@ -30,7 +30,7 @@ apps. Compared with copy-pasted versions of the same code, the utilities in
 
 ## Contributing
 
-This project welcomes contributions from the community. Feel free to <a href="https://github.com/twilio-labs/runtime-helpers/pulls>open a pull request</a> for any features, bug fixes, or any other contributions you want to make.
+This project welcomes contributions from the community. Feel free to <a href="https://github.com/twilio-labs/runtime-helpers/pulls">open a pull request</a> for any features, bug fixes, or any other contributions you want to make.
 
 ### Code of Conduct
 

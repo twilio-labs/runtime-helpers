@@ -35,3 +35,7 @@ This project welcomes contributions from the community. Feel free to <a href="ht
 ### Code of Conduct
 
 Please be aware that this project has a [Code of Conduct](https://github.com/twilio-labs/runtime-helpers/blob/main/CODE_OF_CONDUCT.md). The tldr; is to just be excellent to each other ❤️
+
+## License
+
+MIT

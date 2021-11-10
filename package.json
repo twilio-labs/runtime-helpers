@@ -1,6 +1,6 @@
 {
   "name": "@twilio-labs/runtime-helpers",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A set of common utility code for use in Twilio Functions.",
   "scripts": {
     "clean": "rimraf dist/",

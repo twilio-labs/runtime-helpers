@@ -25,7 +25,13 @@ export function requireAsset(assetPath: string): any {
 
   // Prepend '/' to assetPath if not already present
   assetPath = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
-  return require(assets[assetPath].path);
+  if (assets[assetPath]) {
+    return require(assets[assetPath].path);
+  } else if (assets[`${assetPath}.json`]) {
+    return require(assets[`${assetPath}.json`].path);
+  } else {
+    return require(assets[`${assetPath}.js`].path);
+  }
 }
 
 /**

@@ -57,6 +57,13 @@ export function isAuthenticated(
 ) {
   const { AUTH_USERNAME, AUTH_PASSCODE } = context;
 
+  if (!AUTH_USERNAME || !AUTH_PASSCODE) {
+    console.error(
+      'isAuthenticated requires the AUTH_USERNAME and AUTH_PASSCODE environment variables to be set'
+    );
+    return false;
+  }
+
   if (
     !event.request ||
     !event.request.headers ||

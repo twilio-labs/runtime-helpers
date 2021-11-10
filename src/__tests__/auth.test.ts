@@ -4,6 +4,8 @@ import { isAuthenticated, AuthEnvVars, AuthEvent } from '../auth';
 
 type AuthContext = Context<AuthEnvVars>;
 
+jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
+
 const testUsername = 'testuser';
 const testPasscode = 'testpass';
 const testHeader = 'Basic dGVzdHVzZXI6dGVzdHBhc3M=';
@@ -22,6 +24,13 @@ function mockContext(
 }
 
 describe('isAuthenticated()', () => {
+  it('should return false if its environment variables are not set', () => {
+    const contextWithoutVarsMock = new Mock<AuthContext>().object();
+    const authEventMock = new Mock<AuthEvent>().object();
+
+    expect(isAuthenticated(contextWithoutVarsMock, authEventMock)).toBeFalsy();
+  });
+
   it('should return false if auth headers are not present', () => {
     const [contextMock] = mockContext();
     const authEventMock = new Mock<AuthEvent>().object();

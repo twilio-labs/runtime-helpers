@@ -1,12 +1,17 @@
 import { Mock } from 'moq.ts';
-import { TwilioResponse } from '@twilio-labs/serverless-runtime-types/types';
-import { enableCORS } from '../response';
+import {
+  TwilioResponse,
+  ResponseConstructor,
+  GlobalTwilio,
+} from '@twilio-labs/serverless-runtime-types/types';
+import { createCORSResponse } from '../response';
 
-describe('enableCORS()', () => {
-  it('should modify a TwilioResponse', () => {
+describe('createCORSResponse()', () => {
+  it('should create a new TwilioResponse with CORS headers', () => {
     const origin = 'example.org';
     const methods = ['GET', 'POST', 'OPTIONS'];
     const headers = ['X-Test'];
+
     const responseMock = new Mock<TwilioResponse>()
       .setup((instance) =>
         instance.appendHeader('Access-Control-Allow-Origin', origin)
@@ -27,7 +32,15 @@ describe('enableCORS()', () => {
       )
       .returns(undefined)
       .object();
+    const responseConstructorMock = new Mock<ResponseConstructor>()
+      .setup((instance) => new instance())
+      .returns(responseMock)
+      .object();
+    globalThis.Twilio = new Mock<GlobalTwilio>()
+      .setup((instance) => instance.Response)
+      .returns(responseConstructorMock)
+      .object();
 
-    enableCORS(responseMock, origin, methods, headers);
+    createCORSResponse(origin, methods, headers);
   });
 });

@@ -5,6 +5,7 @@
 import { Context } from '@twilio-labs/serverless-runtime-types/types';
 import * as auth from 'basic-auth';
 import compare from 'tsscmp';
+import { CustomError } from 'ts-custom-error';
 
 /**
  * A type representing the environment variables used by the
@@ -48,7 +49,7 @@ export type AuthEvent = {
  *
  * @param context A Serverless Context containing authentication environment variables.
  * @param event An incoming Serverless request.
- * @returns `true` if the incoming request has authentication headers, and if its credentials match those given in the Function's environment variables. `false` otherwise.
+ * @returns `true` if the incoming request's credentials match those given in the Function's environment variables. `false` otherwise.
  */
 
 export function isAuthenticated(
@@ -58,10 +59,9 @@ export function isAuthenticated(
   const { AUTH_USERNAME, AUTH_PASSCODE } = context;
 
   if (!AUTH_USERNAME || !AUTH_PASSCODE) {
-    console.error(
+    throw new AuthEnvError(
       'isAuthenticated requires the AUTH_USERNAME and AUTH_PASSCODE environment variables to be set'
     );
-    return false;
   }
 
   if (
@@ -69,7 +69,9 @@ export function isAuthenticated(
     !event.request.headers ||
     !event.request.headers.authorization
   ) {
-    return false;
+    throw new AuthHeaderError(
+      'isAuthenticated requires HTTP requests to be sent with the authorization header'
+    );
   }
 
   const parsedCredentials = auth.parse(event.request.headers.authorization);
@@ -85,4 +87,26 @@ export function isAuthenticated(
   valid = compare(pass, AUTH_PASSCODE) && valid;
 
   return valid;
+}
+
+/**
+ * The error type thrown when isAuthenticated's required environment
+ * variables are not set.
+ */
+
+class AuthEnvError extends CustomError {
+  public constructor(message?: string) {
+    super(message);
+  }
+}
+
+/**
+ * The error type thrown when isAuthenticated receives a request lacking the
+ * `authorization` header.
+ */
+
+class AuthHeaderError extends CustomError {
+  public constructor(message?: string) {
+    super(message);
+  }
 }

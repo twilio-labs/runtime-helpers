@@ -24,18 +24,20 @@ function mockContext(
 }
 
 describe('isAuthenticated()', () => {
-  it('should return false if its environment variables are not set', () => {
+  it('should throw if its environment variables are not set', () => {
     const contextWithoutVarsMock = new Mock<AuthContext>().object();
     const authEventMock = new Mock<AuthEvent>().object();
 
-    expect(isAuthenticated(contextWithoutVarsMock, authEventMock)).toBeFalsy();
+    expect(() =>
+      isAuthenticated(contextWithoutVarsMock, authEventMock)
+    ).toThrow();
   });
 
-  it('should return false if auth headers are not present', () => {
+  it('should throw if auth headers are not present', () => {
     const [contextMock] = mockContext();
     const authEventMock = new Mock<AuthEvent>().object();
 
-    expect(isAuthenticated(contextMock, authEventMock)).toBeFalsy();
+    expect(() => isAuthenticated(contextMock, authEventMock)).toThrow();
   });
 
   it('should return false if the auth header does not parse', () => {

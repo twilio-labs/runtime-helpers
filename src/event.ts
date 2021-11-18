@@ -3,46 +3,71 @@
  * @module
  */
 import '@twilio-labs/serverless-runtime-types';
-import { ServerlessCallback } from '@twilio-labs/serverless-runtime-types/types';
+import {
+  ServerlessFunctionSignature,
+  EnvironmentVariables,
+} from '@twilio-labs/serverless-runtime-types/types';
 import ow from 'ow';
 
-type Parameters = {
-  [key: string]: string;
-};
-
 /**
- * Ensures that a Serverless `event` has HTTP parameters defined for the keys
- * given in the argument `required`. If any required parameters are missing, an
- * error response is generated and passed to the given Serverless `callback`.
- *
- * Usage: `expectParams(event, callback, ['param1', 'param2', 'param3']);`
- *
- * @param event A Serverless event.
- * @param callback A Serverless callback.
- * @param required A list of required parameter keys.
- * @param moreInfo An optional URL to the Function's API docs, to be included in error responses.
+ * The set of options that can be passed into {@link expectParams}.
  */
 
-export function expectParams(
-  event: unknown,
-  callback: ServerlessCallback,
-  required: string[],
-  moreInfo: string | undefined = undefined
-) {
-  try {
-    ow(event, ow.object.hasKeys.apply(required).valuesOfType(ow.string));
-  } catch (error: any) {
-    const response = new Twilio.Response();
+export interface ExpectParamsOptions {
+  moreInfo?: string;
+}
 
-    response.appendHeader('Content-Type', 'application/json');
-    response.setStatusCode(400);
-    response.setBody({
-      error: {
-        message: error.message,
-        moreInfo,
-      },
-    });
+/**
+ * This is a higher-order function that wraps a given Serverless entry point
+ * `handler` and verifies that each of the HTTP parameters in the list
+ * `requiredParams` is set. If any required parameters are missing, this
+ * function will generate an appropriate error response and send that instead of
+ * running the code in `handler`. `options` is a set of optional configuration
+ * values; for now, this is just the `moreInfo` field, which adds a link to
+ * the relevant documentation for the returned error if set.
+ *
+ * Usage:
+ * ```
+ * const params = ['param1', 'param2'];
+ *
+ * exports.handler = expectParams(params, (context, event, callback) => {
+ *   console.log('Only gets invoked if the params are provided');
+ *   callback(null, { success: true });
+ * });
+ * ```
+ *
+ * @param requiredParams The list of required HTTP parameters.
+ * @param handler A Serverless entry point to wrap.
+ * @param options Optional configuration parameters.
+ * @returns A Serverless entry point suitable for use as a Function's `exports.handler`.
+ */
 
-    return callback(null, response);
-  }
+export function expectParams<T extends EnvironmentVariables = {}, U = {}>(
+  requiredParams: string[],
+  handler: ServerlessFunctionSignature<T, U>,
+  options: ExpectParamsOptions = {}
+): ServerlessFunctionSignature<T, U> {
+  return (context, event, callback) => {
+    try {
+      ow(
+        event,
+        ow.object.hasKeys.apply(requiredParams).valuesOfType(ow.string)
+      );
+    } catch (error: any) {
+      const response = new Twilio.Response();
+
+      response.appendHeader('Content-Type', 'application/json');
+      response.setStatusCode(400);
+      response.setBody({
+        error: {
+          message: error.message,
+          moreInfo: options.moreInfo,
+        },
+      });
+
+      return callback(null, response);
+    }
+
+    return handler(context, event, callback);
+  };
 }

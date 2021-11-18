@@ -31,17 +31,16 @@ describe('createCORSResponse()', () => {
     const methods = ['GET', 'POST', 'OPTIONS'];
     const headers = ['X-Test'];
 
-    const response = new Response();
     const responseConstructorMock = new Mock<ResponseConstructor>()
       .setup((instance) => new instance())
-      .returns(response)
+      .returns(new Response())
       .object();
     globalThis.Twilio = new Mock<GlobalTwilio>()
       .setup((instance) => instance.Response)
       .returns(responseConstructorMock)
       .object();
 
-    createCORSResponse(origin, methods, headers);
+    const response = createCORSResponse(origin, methods, headers) as Response;
 
     expect(response.headers['Access-Control-Allow-Origin']).toBe(origin);
     expect(response.headers['Access-Control-Allow-Methods']).toEqual(

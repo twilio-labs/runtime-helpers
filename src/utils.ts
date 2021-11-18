@@ -28,9 +28,9 @@ export function requireAsset(assetPath: string): any {
   if (assets[assetPath]) {
     return require(assets[assetPath].path);
   } else if (assets[`${assetPath}.json`]) {
-    return require(assets[`${assetPath}.json`].path);
-  } else {
     return require(assets[`${assetPath}.js`].path);
+  } else {
+    return require(assets[`${assetPath}.json`].path);
   }
 }
 

@@ -34,10 +34,12 @@ export interface RequestInitWithRetry extends RequestInit {
 /**
  * The default exponential backoff delay function used by
  * {@link fetch} when it needs to retry a request.
+ *
+ * Note that since Functions are limited to 10 seconds of runtime, requests
+ * that use this delay function can only retry a maximum of 4 times (8 seconds).
  */
 
-export const exponentialDelay = (attempt: number) =>
-  Math.pow(2, attempt) * 1000;
+export const exponentialDelay = (attempt: number) => Math.pow(2, attempt) * 500;
 
 const fetchBuilder = (): ((
   input: RequestInfo,
@@ -53,6 +55,12 @@ const fetchBuilder = (): ((
  * [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This
  * Fetch implementation supports automatic retries on failure with (by default)
  * exponential backoff, in addition to the standard Fetch API features.
+ *
+ * Note that Functions are limited to 10 seconds of runtime, which imposes a
+ * cap on the maximum number of retries and amount of time between retries
+ * for failed requests. The default delay function allows for a maximum number
+ * of 4 retries before the Function times out, but other requests and time spent
+ * executing code will lower the practical maximum.
  *
  * Usage: `const response = await fetch(url, options);`
  *

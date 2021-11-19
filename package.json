@@ -67,8 +67,8 @@
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
-    "cross-fetch": "^3.1.4",
     "fetch-retry": "^5.0.1",
+    "node-fetch": "^3.1.0",
     "ow": "^0.28.1",
     "ts-custom-error": "^3.2.0",
     "tsscmp": "^1.0.6",

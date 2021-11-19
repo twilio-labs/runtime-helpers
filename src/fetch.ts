@@ -1,4 +1,4 @@
-import rawFetch from 'cross-fetch';
+import rawFetch from 'node-fetch';
 
 /**
  * The type signature for {@link fetch}'s `retryDelay` function.
@@ -51,7 +51,7 @@ const fetchBuilder = (): ((
   });
 
 /**
- * A cross-platform (Node and browser) implementation of the
+ * An implementation of the
  * [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This
  * Fetch implementation supports automatic retries on failure with (by default)
  * exponential backoff, in addition to the standard Fetch API features.

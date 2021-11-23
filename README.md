@@ -11,9 +11,8 @@
 
 ## Installation
 
-```bash
-npm install @twilio-labs/runtime-helpers
-```
+To use this library in a Twilio Function, see our
+[documentation on adding new dependencies to Functions](https://www.twilio.com/docs/runtime/functions/dependencies).
 
 ## Goals
 

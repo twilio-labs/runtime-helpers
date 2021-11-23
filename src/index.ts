@@ -1,5 +1,8 @@
 /**
+ * Copyright (c) 2021 Twilio Inc.
+ *
  * runtime-helpers default exports
+ *
  * @module
  */
 import * as authLib from './auth';

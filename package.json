@@ -2,7 +2,7 @@
   "name": "@twilio-labs/runtime-helpers",
   "main": "dist/index",
   "typings": "dist/index",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A set of common utility code for use in Twilio Functions.",
   "scripts": {
     "clean": "rimraf dist/",

@@ -1,4 +1,5 @@
 import rawFetch from 'node-fetch';
+import fetchRetryWrapper from 'fetch-retry';
 
 /**
  * The type signature for {@link fetch}'s `retryDelay` function.
@@ -45,7 +46,7 @@ const fetchBuilder = (): ((
   input: RequestInfo,
   init?: RequestInitWithRetry
 ) => Promise<Response>) =>
-  require('fetch-retry')(rawFetch, {
+  fetchRetryWrapper(rawFetch as any, {
     retries: 0,
     retryDelay: exponentialDelay,
   });

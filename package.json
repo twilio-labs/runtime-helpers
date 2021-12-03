@@ -16,7 +16,8 @@
     "format": "prettier --write .",
     "format:changed": "pretty-quick --branch main",
     "format:check": "prettier --check .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -67,7 +68,10 @@
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
+    "fetch-retry": "^5.0.1",
+    "node-fetch": "^3.1.0",
     "ow": "^0.28.1",
+    "patch-package": "^6.4.7",
     "ts-custom-error": "^3.2.0",
     "tsscmp": "^1.0.6",
     "twilio": "^3.67.2"

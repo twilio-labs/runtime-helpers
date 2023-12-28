@@ -74,7 +74,7 @@
     "patch-package": "^6.4.7",
     "ts-custom-error": "^3.2.0",
     "tsscmp": "^1.0.6",
-    "twilio": "^3.67.2"
+    "twilio": "^4.19.3"
   },
   "files": [
     "dist/!(__tests__)",

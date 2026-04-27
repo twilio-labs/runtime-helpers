@@ -66,7 +66,7 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
-    "@twilio-labs/serverless-runtime-types": "^2.1.1",
+    "@twilio-labs/serverless-runtime-types": "^3.0.0",
     "basic-auth": "^2.0.1",
     "fetch-retry": "^5.0.1",
     "node-fetch": "^3.1.0",
@@ -74,7 +74,7 @@
     "patch-package": "^6.4.7",
     "ts-custom-error": "^3.2.0",
     "tsscmp": "^1.0.6",
-    "twilio": "^3.67.2"
+    "twilio": "^4.19.3"
   },
   "files": [
     "dist/!(__tests__)",
